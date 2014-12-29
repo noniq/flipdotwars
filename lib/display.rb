@@ -16,7 +16,7 @@ class Display
       0.upto(47).each do |col|
         byte = ""
         119.downto(0).each do |row|
-          byte += frame[row][panel * 48 + col] == " " ? "1" : "0"
+          byte += frame[row][panel * 48 + col] != " " ? "1" : "0"
           if byte.length == 8
             bytes[panel] << byte.to_i(2)
             byte = ""
