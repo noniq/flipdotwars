@@ -8,6 +8,7 @@ EMPTY_LINE = " " * 144
 
 DISPLAY_IPS = %w(2001:67C:20A1:1095:C49D:E22D:6891:DCD 2001:67C:20A1:1095:34B1:6957:8DDB:3A79  2001:67C:20A1:1095:552A:1594:871F:D9C2)
 DISPLAY_PORT = 2323
+DELAY        = 0.7 # Delay (in seconds) between sending the frames
 
 skip_frames = ARGV[0].to_i || 0
 
@@ -31,5 +32,5 @@ movie.frames[skip_frames..-1].each_slice(8).with_index do |frames, i|
   display.show(display_lines)
   print "\e[2J\e[f"
   puts display_lines
-  sleep(0.7)
+  sleep(DELAY)
 end
