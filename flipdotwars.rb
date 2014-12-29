@@ -10,20 +10,19 @@ DISPLAY_IPS = %w(2001:67C:20A1:1095:C49D:E22D:6891:DCD 2001:67C:20A1:1095:34B1:6
 DISPLAY_PORT = 2323
 DELAY        = 0.7 # Delay (in seconds) between sending the frames
 
-skip_frames = ARGV[0].to_i || 0
+@current_frame = ARGV[0].to_i || 0
 
 charset = Charset.new("#{__dir__}/data/charset.txt")
 movie   = Movie.new("#{__dir__}/data/movie.txt")
 display = Display.new(DISPLAY_IPS, DISPLAY_PORT)
 
 trap "SIGINT" do
-  puts "Exiting at frame #{@frame_nr}"
+  puts "Exiting at frame #{@current_frame.to_i}"
   exit 130
 end
 
-movie.frames[skip_frames..-1].each_slice(8).with_index do |frames, i|
-  @frame_nr = skip_frames + i * 8
-  frame = frames.first
+while @current_frame < movie.frames.length
+  frame = movie.frames[@current_frame.to_i]
   display_lines = [EMPTY_LINE] * 34
   frame.each do |line|
     display_lines += charset.convert(line).map{ |l| "     #{l}     " }
@@ -33,4 +32,5 @@ movie.frames[skip_frames..-1].each_slice(8).with_index do |frames, i|
   print "\e[2J\e[f"
   puts display_lines
   sleep(DELAY)
+  @current_frame += 15.0 / (1.0 / DELAY) # Original movie has about 15 FPS
 end
