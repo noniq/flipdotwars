@@ -9,7 +9,7 @@ EMPTY_LINE = " " * 144
 DISPLAY_IPS = %w(2001:67C:20A1:1095:C49D:E22D:6891:DCD 2001:67C:20A1:1095:34B1:6957:8DDB:3A79  2001:67C:20A1:1095:552A:1594:871F:D9C2)
 DISPLAY_PORT = 2323
 
-FRAME_OFFSET = 0
+skip_frames = ARGV[0].to_i || 0
 
 charset = Charset.new("#{__dir__}/data/charset.txt")
 movie   = Movie.new("#{__dir__}/data/movie.txt")
@@ -20,8 +20,8 @@ trap "SIGINT" do
   exit 130
 end
 
-movie.frames[FRAME_OFFSET..-1].each_slice(8).with_index do |frames, i|
-  @frame_nr = FRAME_OFFSET + i * 8
+movie.frames[skip_frames..-1].each_slice(8).with_index do |frames, i|
+  @frame_nr = skip_frames + i * 8
   frame = frames.first
   display_lines = [EMPTY_LINE] * 34
   frame.each do |line|
