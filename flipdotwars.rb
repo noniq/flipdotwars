@@ -8,7 +8,7 @@ EMPTY_LINE = " " * 144
 
 DISPLAY_IPS = %w(2001:67C:20A1:1095:C49D:E22D:6891:DCD 2001:67C:20A1:1095:34B1:6957:8DDB:3A79  2001:67C:20A1:1095:552A:1594:871F:D9C2)
 DISPLAY_PORT = 2323
-DELAY        = 0.7 # Delay (in seconds) between sending the frames
+DELAY        = 0.55 # Delay (in seconds) between sending the frames
 
 @current_frame = ARGV[0].to_i || 0
 
