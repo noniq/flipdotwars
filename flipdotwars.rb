@@ -10,7 +10,9 @@ DELAY        = 0.55 # Delay (in seconds) between sending the frames
 
 @current_frame = ARGV[0].to_i || 0
 
-charset = Charset.new("#{__dir__}/data/charset.txt")
+#charset = Charset.new("#{__dir__}/data/charset-2x4.txt", 2, 4)
+charset = Charset.new("#{__dir__}/data/charset-3x6.txt", 3, 6)
+
 movie   = Movie.new("#{__dir__}/data/movie.txt")
 display = Display.new(DISPLAY_IPS, DISPLAY_PORT)
 

@@ -36,7 +36,7 @@ class Display
   
   # Pad frame with blank lines and spaces so we get exactly 120 lines, containing 144 characters each.
   def pad_frame(frame)
-    frame = frame.map{ |line| line.center(TOTAL_WIDTH) }    
+    frame = frame.map{ |line| line[[0, (line.length - TOTAL_WIDTH) / 2].max.to_i, TOTAL_WIDTH].center(TOTAL_WIDTH) }
     blank_lines = HEIGHT - frame.size
     [EMPTY_LINE] * (blank_lines / 2.0).ceil + frame + [EMPTY_LINE] * (blank_lines / 2.0).floor
   end
